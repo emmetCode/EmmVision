@@ -1,19 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
+    ></script>
+    <title>EmmVision</title>
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
-    <title>EmmetOCR</title>
-</head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <a href="/" id="logoTxt">EmmVision</a>
+        </div>
+        <div class="nav-links" id="nav-links">
+          <a href="#upload">Upload</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="hamburger" id="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </header>
 
-<body>
-    <h1>Image to PDF </h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="avatar" id="" />
-        <button type="submit">Convert</button>
-    </form>
-</body>
+    <!--Marquee starts-->
+    <marquee id="marq" behaviour="scroll" direction="left" scrollamount="10"
+      >Say goodbye to manual typing—EmmVision transforms images into actionable
+      text in seconds
+    </marquee>
 
+    <!--Hero Section-->
+    <section class="bg-white dark:bg-gray-900">
+      <div
+        class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12"
+      >
+        <div class="mr-auto place-self-center lg:col-span-7">
+          <h1
+            class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white"
+          >
+            From Image to Text, Instantly
+          </h1>
+          <p
+            class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"
+          >
+            Snap it, scan it, sort it. EmmVision turns messy images into clean,
+            usable text—no hassle, no fuss.
+          </p>
+          <a
+            id="getStarted"
+            href="#upload"
+            class="inline-flex items-center justify-center px-5 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-500 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+          >
+            Get started
+            <svg
+              class="w-5 h-5 ml-2 -mr-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </a>
+          <a
+            target="_blank"
+            href="https://aws.amazon.com/what-is/ocr/#:~:text=Optical%20Character%20Recognition%20(OCR)%20is,words%20in%20the%20image%20file."
+            class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+          >
+            Learn More
+          </a>
+        </div>
+        <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          <img src="/public/OCR-Software.jpg" alt="mockup" id="heroimg" />
+        </div>
+      </div>
+    </section>
+
+    <!--upload section starts-->
+
+    <section id="upload">
+      <p id="fileName" class="file-name"></p>
+      <form id="ocrForm" enctype="multipart/form-data">
+        <div id="dropzone" class="dropzone">
+          <input
+            type="file"
+            id="dragInput"
+            class="hidden"
+            accept=".jpg,.jpeg,.png"
+          />
+          <p>
+            <b> 📂 Drag & drop an image here, or</b>
+            <span id="browseBtn">Browse</span>
+          </p>
+        </div>
+        <input
+          type="file"
+          name="avatar"
+          id="fileInput"
+          accept=".jpg, .jpeg, .png"
+        />
+        <br />
+        <button type="submit" id="submit">Convert</button>
+      </form>
+    </section>
+
+    <!--Result section-->
+    <div class="wrapper">
+      <!-- Left: OCR Text -->
+      <div id="resultSection">
+        <h3>📝 Extracted Text:</h3>
+        <textarea
+          id="ocrResult"
+          rows="10"
+          placeholder="The extracted text from above images appears here!"
+          style="width: 100%; text-align: justify"
+        ></textarea>
+      </div>
+
+      <!-- Right: Action Buttons -->
+      <div id="action" style="text-align: center">
+        <h1>What do you want to do with the text?</h1>
+        <button id="btnCpy">Copy Text</button>
+        <button id="dwnPdf">Download PDF</button>
+      </div>
+    </div>
+
+    <!--Contact Section-->
+    <section id="contact" style="padding: 40px">
+      <h2
+        style="
+          text-align: center;
+          font-size: 40px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+            sans-serif;
+          font-style: oblique;
+          color: rgb(112, 121, 245);
+        "
+      >
+        📬 We expect queries from you !
+      </h2>
+      <form id="contactForm" style="max-width: 600px; margin: auto">
+        <input
+          id="name"
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+        />
+        <input
+          id="email"
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          required
+        />
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          placeholder="Your Message..."
+          required
+        ></textarea>
+        <button type="submit">Send Message</button>
+        <p id="formMsg" style="text-align: center; margin-top: 10px"></p>
+      </form>
+    </section>
+
+    <!--footer-->
+    <!-- Footer Section -->
+
+    <footer
+      class="bg-white rounded-lg shadow-sm m-4 dark:bg-gray-800"
+      style="margin-top: auto"
+    >
+      <div
+        class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between"
+      >
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
+          >© 2025
+          <a href="https://flowbite.com/" class="hover:underline">EmmVision™</a>
+          All Rights Reserved.
+        </span>
+        <ul
+          class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0"
+        >
+          <li>
+            <a
+              href="https://emmet.netlify.app"
+              target="_blank"
+              class="hover:underline me-4 md:me-6"
+              >Emmet</a
+            >
+          </li>
+          <li>
+            <a
+              href="/views/privacy-policy.html"
+              class="hover:underline me-4 md:me-6"
+              >Privacy Policy</a
+            >
+          </li>
+          <li>
+            <a
+              target="_blank"
+              href="https://github.com/emmetCode"
+              class="hover:underline me-4 md:me-6"
+              >Github</a
+            >
+          </li>
+        </ul>
+      </div>
+    </footer>
+
+    <!--Script-->
+    <!--navbar script-->
+    <script>
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("nav-links");
+
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+      });
+    </script>
+
+    <!--dropzone and selection script-->
+    <script>
+      const dropzone = document.getElementById("dropzone");
+      const fileInput = document.getElementById("fileInput");
+      const browseBtn = document.getElementById("browseBtn");
+      const fileNameDisplay = document.getElementById("fileName");
+
+      browseBtn.addEventListener("click", () => fileInput.click());
+
+      fileInput.addEventListener("change", (e) => {
+        handleFile(e.target.files[0]);
+      });
+
+      dropzone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropzone.classList.add("dragover");
+      });
+
+      dropzone.addEventListener("dragleave", () => {
+        dropzone.classList.remove("dragover");
+      });
+
+      dropzone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropzone.classList.remove("dragover");
+        const file = e.dataTransfer.files[0];
+        if (file) handleFile(file);
+      });
+
+      function handleFile(file) {
+        const validTypes = ["image/jpeg", "image/png", "image/jpg"];
+        if (!validTypes.includes(file.type)) {
+          alert("Only JPG or PNG files are supported.");
+          return;
+        }
+
+        fileNameDisplay.textContent = `Selected: ${file.name}`;
+
+        // Set the file to the actual input field so it can be submitted
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        fileInput.files = dataTransfer.files;
+
+        // 👉 You can now send this file to your OCR engine!
+        console.log("File ready for OCR:", file);
+      }
+
+      const form = document.getElementById("ocrForm");
+      const resultSection = document.getElementById("resultSection");
+      const ocrResult = document.getElementById("ocrResult");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const file = fileInput.files[0];
+        if (!file) {
+          alert("Please select or drop a file first.");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("avatar", file);
+
+        try {
+          const response = await fetch("/upload", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) throw new Error("Upload failed");
+
+          const data = await response.text(); // or .json() if you're sending JSON
+
+          ocrResult.value = data;
+          resultSection.style.display = "block";
+        } catch (error) {
+          alert("Error: " + error.message);
+        }
+      });
+    </script>
+
+    <!--Jquery to copy text from text area-->
+    <script>
+      $("#btnCpy").click(function () {
+        $("#ocrResult").select();
+        document.execCommand("copy");
+        alert("Text copied to clipboard!");
+      });
+    </script>
+
+    <!--pdf download script-->
+    <script>
+      $(document).ready(function () {
+        $("#dwnPdf").click(function () {
+          var doc = new jsPDF();
+          var content = $("#ocrResult").val();
+
+          if (!content.trim()) {
+            alert("Textarea is empty! Nothing to download.");
+            return;
+          }
+
+          var lines = doc.splitTextToSize(content, 180); // Wrap text nicely
+          doc.text(lines, 10, 10);
+          doc.save("ExtractedText.pdf");
+        });
+      });
+    </script>
+
+    <!--email js-->
+    <script>
+      (function () {
+        emailjs.init("HCl34Y4COoqfHosWU"); // Your Public Key
+      })();
+
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formMsg = document.getElementById("formMsg");
+          emailjs.sendForm("service_p9xq26b", "template_l4ivmna", this).then(
+            () => {
+              formMsg.textContent = "✅ Message sent successfully!";
+              formMsg.className = "success-msg";
+              this.reset();
+            },
+            (err) => {
+              formMsg.textContent = "❌ Failed to send message. Try again.";
+              formMsg.className = "error-msg";
+              console.error("EmailJS Error:", err);
+            }
+          );
+        });
+    </script>
+
+    <script>
+      document
+        .getElementById("emailLink")
+        .addEventListener("click", function () {
+          var email = "emmet.itc@gmail.com";
+          var subject = "Query from EmmVision";
+          var body =
+            "Hello EmmVision,\n\nHere is my message:\n\n\nBest regards\nYour Name";
+          window.location.href =
+            "mailto:" +
+            email +
+            "?subject=" +
+            encodeURIComponent(subject) +
+            "&body=" +
+            encodeURIComponent(body);
+        });
+    </script>
+  </body>
 </html>

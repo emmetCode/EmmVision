@@ -1,3 +1,319 @@
-h1 {
-    color: red;
+* {
+  margin: 20px 30px;
+}
+
+#heroimg {
+  width: max-content;
+}
+
+#logoTxt {
+  font-family: "Edu AU VIC WA NT Arrows", cursive;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 33px;
+  color: #3b82f6;
+}
+
+header {
+  color: black;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-links a {
+  margin: 0 15px;
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 20px;
+}
+
+.nav-links a:hover {
+  color: #3b82f6;
+  /* Hover color for links */
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hamburger .bar {
+  background-color: #3b82f6;
+  height: 4px;
+  width: 25px;
+  margin: 3px 0;
+}
+
+/*hero section*/
+#getStarted:hover {
+  background-color: whitesmoke;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+  transition: color 1s;
+}
+
+#marq {
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px 0px;
+}
+
+#marq {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    width: 30%;
+    flex-direction: column;
+    background-color: none;
+    position: absolute;
+    background-color: #3b82f6;
+    top: 50px;
+    left: 0;
+    padding: 0 0;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .nav-links a:hover {
+    color: white;
+    font-weight: bold;
+  }
+
+  .nav-links a {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@700&family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=National+Park:wght@200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
+/*upload section starts*/
+#upload {
+  text-align: center;
+  vertical-align: middle;
+}
+#submit {
+  background-color: rgb(238, 19, 19);
+  padding: 6px 10px;
+  border-radius: 5px;
+  color: white;
+  border: 1px solid blue;
+}
+
+.dropzone {
+  border: 2px dashed #ccc;
+  padding: 150px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+  max-width: 800px;
+  height: 200px;
+  margin: 20px auto;
+}
+
+.dropzone:hover {
+  background-color: #f1f1f1;
+}
+
+.hidden {
+  display: none;
+}
+
+#browseBtn {
+  color: #3b82f6;
+  font-size: 29px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.file-name {
+  text-align: center;
+  margin-top: 10px;
+  color: #444;
+  font-size: 14px;
+}
+
+.dropzone.dragover {
+  background-color: #e0f7fa;
+  border-color: #26c6da;
+}
+
+/*upload section*/
+#upload {
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .dropzone {
+    padding: 20px;
+    height: fit-content;
+    width: fit-content;
+  }
+}
+
+#fileInput {
+  width: auto;
+  height: auto;
+  border: 2px dotted rgb(131, 129, 129);
+}
+
+#submit {
+  margin-top: 15px;
+  width: 100px;
+  height: 50px;
+  color: white;
+  background-color: #3b82f6;
+  border: 1px solid rgb(206, 199, 199);
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+#submit:hover {
+  background-color: white;
+  color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+#upload {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+#btnCpy {
+  padding: 10px 10px;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#btnCpy:hover {
+  background-color: white;
+  color: #3b82f6;
+  border: 1px solid #3b82f6;
+}
+
+#dwnPdf:hover {
+  background-color: white;
+  color: #3b82f6;
+  border: 1px solid #3b82f6;
+}
+
+#dwnPdf {
+  padding: 10px 10px;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #b6b7b9;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+#resultSection h3 {
+  font-size: 24px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: #3b82f6;
+}
+
+#ocrResult {
+  padding-left: 30px;
+  padding-top: 10px;
+  border-bottom: none;
+}
+
+#action h1 {
+  font-size: 40px;
+  font-weight: 500;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+#action {
+  -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  padding-bottom: 13px;
+}
+
+#resultSection textarea {
+  text-align: center;
+}
+
+/*buttons and pdfs done
+
+/*Contact section*/
+#contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#contactForm input,
+#contactForm textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#contactForm button {
+  background-color: #2b7df7;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#contactForm button:hover {
+  background-color: #105bd8;
+}
+
+@media (max-width: 600px) {
+  #contactForm {
+    width: 100%;
+  }
+}
+
+footer a:hover {
+  color: #3b82f6;
 }
